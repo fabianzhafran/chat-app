@@ -67,18 +67,19 @@ io.on('connection', (socket) => {
         callback()
     })
 
-    // When a user disconnects
-    socket.on('disconnect', () => {
-        const user = removeUser(socket.id)
-        socket.to(user.roomname).emit('messageContent', msgFuncs.generateMessage(user.username, `~~~${user.username} has left the site~~~`))
-        if (user) {
-            io.to(user.room).emit('messageContent', msgFuncs.generateMessage('~~~A user has left~~~'))
-            io.to(user.room).emit('roomData', {
-                room : user.roomname,
-                users : getUsersInRoom(user.roomname) 
-            })
-        }
-    })
+    // When a user disconnects ~~[CODE DOES NOT WORK WHEN DEPLOYED ONLINE]~~
+    // socket.on('disconnect', () => {
+    //     const user = removeUser(socket.id)
+    //     socket.to(user.roomname).emit('messageContent', msgFuncs.generateMessage(user.username, `~~~${user.username} has left the site~~~`))
+    //     if (user) {
+    //         io.to(user.room).emit('messageContent', msgFuncs.generateMessage('~~~A user has left~~~'))
+    //         io.to(user.room).emit('roomData', {
+    //             room : user.roomname,
+    //             users : getUsersInRoom(user.roomname) 
+    //         })
+    //     }
+    // })
+    
 })
 
 app.get('', (req, res) => {
