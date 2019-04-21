@@ -57,7 +57,7 @@ io.on('connection', (socket) => {
 
         socket.join(user.roomname)
         socket.emit('messageContent', msgFuncs.generateMessage('Admin', welcomeMsg)) // Send to current connected user only
-        socket.broadcast.to(user.roomname).emit('messageContent', msgFuncs.generateMessage(`~~~${user.username} has joined the chat~~~`)) // Broadcast to everyone except the new dude
+        socket.broadcast.to(user.roomname).emit('messageContent', msgFuncs.generateMessage(user.username, `~~~${user.username} has joined the chat~~~`)) // Broadcast to everyone except the new dude
         // Render the sidebar room name
         io.to(user.roomname).emit('roomData', {
             room : user.roomname,
@@ -70,7 +70,7 @@ io.on('connection', (socket) => {
     // When a user disconnects
     socket.on('disconnect', () => {
         const user = removeUser(socket.id)
-        console.log(`${user.username} has left the site`)
+        socket.to(user.roomname).emit('messageContent', msgFuncs.generateMessage(user.username, `~~~${user.username} has left the site~~~`))
         if (user) {
             io.to(user.room).emit('messageContent', msgFuncs.generateMessage('~~~A user has left~~~'))
             io.to(user.room).emit('roomData', {
