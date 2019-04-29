@@ -1,2 +1,2 @@
-# chat-app
-Chat app project from Udemy lessons
+# Chat Website
+Chat website project from Udemy Andrew Mead's Node.js lesson
