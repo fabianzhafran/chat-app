@@ -1,2 +1,2 @@
 # Chat Website
-Chat website project from Udemy Andrew Mead's Node.js lesson
+A little chat website using socket.io
